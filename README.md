@@ -1,1 +1,0 @@
-Discord bot for Hash Code 2021 Hub

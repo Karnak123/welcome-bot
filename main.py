@@ -41,6 +41,12 @@ def get_joke():
   joke = json_data['setup'] + '\n' + json_data['punchline']
   return joke
 
+def shake(content):
+  res = requests.get('https://api.funtranslations.com/translate/shakespeare.json?text='+content)
+  json_data = json.loads(res.text)
+  shakes = json_data['contents']['translated']
+  return shakes
+
 
 @client.event
 async def on_ready():
@@ -60,6 +66,11 @@ async def on_message(message):
     await get_meme(message)
   elif message.content.startswith('bot joke'):
     await message.channel.send(get_joke())
+  else:
+    t = randint(0,10)
+    print(t)
+    if t>3:
+      await message.channel.send(shake(message.content))
 
 keep_alive()
 client.run(os.getenv('TOKEN'))
